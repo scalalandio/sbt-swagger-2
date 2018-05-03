@@ -3,6 +3,9 @@
 This plugin is a sbt wrapper for a [Swagger Akka HTTP](https://github.com/swagger-akka-http/swagger-akka-http), that
 allows you to generate one (or more) Swagger JSON files during build instead of doing it in runtime.
 
+As such you can annotate your APIs, the same way you did in Swagger Akka HTTP. Then you can generate `swagger.json` only
+after you modified files, remove all dependencies from build, and use `getFromResource("swagger.json")` to serve it.
+
 ## Motivation
 
  * I wanted to limit dependencies used in runtime - as I used Circe and Jaws for JSON, shipping separate library
@@ -57,6 +60,9 @@ Once configured one can run it with:
 sbt> swaggerGenerate
 ```
 
-## Requirements
+## Requirements and limitations
 
-This plugin requires sbt 1.0.0+.
+This plugin requires sbt 1.1.0+.
+
+So far I haven't found a way to run generator automatically after each compilation without having issue with circular
+depenendencies and sbt freeze, so you should select resources dir as the target and run `swaggerGenerate` manually.
