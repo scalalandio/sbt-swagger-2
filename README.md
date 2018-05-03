@@ -1,5 +1,9 @@
 # sbt-swagger-2
 
+[![Build Status](https://travis-ci.org/scalalandio/sbt-swagger-2.svg?branch=master)](https://travis-ci.org/scalalandio/sbt-swagger-2)
+[![Maven Central](https://img.shields.io/maven-central/v/io.scalaland/sbt-swagger-2_2.12.svg)](http://search.maven.org/#search%7Cga%7C1%7Csbt-swagger-2)
+[![License](http://img.shields.io/:license-Apache%202-green.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
+
 This plugin is a sbt wrapper for a [Swagger Akka HTTP](https://github.com/swagger-akka-http/swagger-akka-http), that
 allows you to generate one (or more) Swagger JSON files during build instead of doing it in runtime.
 
@@ -17,6 +21,12 @@ after you modified files, remove all dependencies from build, and use `getFromRe
    version of Swagger.
 
 ## Usage
+
+First add plugin to `project/plugins.sbt` file:
+
+```scala
+addSbtPlugin("io.scalaland" %% "sbt-swagger-2" % sbtSwagger2Version)
+```
 
 Project basically reuse all constructs from [Swagger Akka HTTP](https://github.com/swagger-akka-http/swagger-akka-http).
 It add aliases for them in `io.scalaland.sbtswagger2.SbtSwagger2Plugin.autoImport`, so classes used for creating config
