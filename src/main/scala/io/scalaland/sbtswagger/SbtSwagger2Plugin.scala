@@ -17,26 +17,34 @@ object SbtSwagger2Plugin extends AutoPlugin {
     val swaggerOutputs  = settingKey[Seq[SwaggerOutput]]("Configurations of all intended Swagger outputs")
     val swaggerGenerate = taskKey[Seq[File]]("A task that is automatically imported to the build")
 
-    type SwaggerOutput = _root_.io.scalaland.sbtswagger.SwaggerOutput
-    val SwaggerOutput = _root_.io.scalaland.sbtswagger.SwaggerOutput
+    object Swagger {
 
-    type Contact = _root_.com.github.swagger.akka.model.Contact
-    val Contact = _root_.com.github.swagger.akka.model.Contact
+      type Output = _root_.io.scalaland.sbtswagger.SwaggerOutput
+      val Output = _root_.io.scalaland.sbtswagger.SwaggerOutput
 
-    type ExternalDocs = _root_.io.swagger.models.ExternalDocs
+      type Contact = _root_.com.github.swagger.akka.model.Contact
+      val Contact = _root_.com.github.swagger.akka.model.Contact
 
-    type Info = _root_.com.github.swagger.akka.model.Info
-    val Info = _root_.com.github.swagger.akka.model.Info
+      type ExternalDocs = _root_.io.swagger.models.ExternalDocs
 
-    type License = _root_.com.github.swagger.akka.model.License
-    val License = _root_.com.github.swagger.akka.model.License
+      type Info = _root_.com.github.swagger.akka.model.Info
+      val Info = _root_.com.github.swagger.akka.model.Info
 
-    type Scheme = _root_.io.swagger.models.Scheme
-    object Scheme {
-      val HTTP = _root_.io.swagger.models.Scheme.HTTP
-      val HTTPS = _root_.io.swagger.models.Scheme.HTTPS
-      val WS = _root_.io.swagger.models.Scheme.WS
-      val WSS = _root_.io.swagger.models.Scheme.WSS
+      type License = _root_.com.github.swagger.akka.model.License
+      val License = _root_.com.github.swagger.akka.model.License
+
+      type Scheme = _root_.io.swagger.models.Scheme
+      object Scheme {
+        val HTTP  = _root_.io.swagger.models.Scheme.HTTP
+        val HTTPS = _root_.io.swagger.models.Scheme.HTTPS
+        val WS    = _root_.io.swagger.models.Scheme.WS
+        val WSS   = _root_.io.swagger.models.Scheme.WSS
+      }
+
+      type SecuritySchemeDefinition = _root_.io.swagger.models.auth.SecuritySchemeDefinition
+      type ApiKeyAuthDefinition     = _root_.io.swagger.models.auth.ApiKeyAuthDefinition
+      type BasicAuthDefinition      = _root_.io.swagger.models.auth.BasicAuthDefinition
+      type OAuth2Definition         = _root_.io.swagger.models.auth.OAuth2Definition
     }
   }
 
