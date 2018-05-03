@@ -14,8 +14,9 @@ object SbtSwagger2Plugin extends AutoPlugin {
 
   object autoImport {
 
+    val swaggerVersion  = settingKey[String]("Version of Swagger Annotations that should be added to project")
     val swaggerOutputs  = settingKey[Seq[SwaggerOutput]]("Configurations of all intended Swagger outputs")
-    val swaggerGenerate = taskKey[Seq[File]]("A task that is automatically imported to the build")
+    val swaggerGenerate = taskKey[Seq[File]]("Generate Swagger outputs")
 
     object Swagger {
 
@@ -51,9 +52,10 @@ object SbtSwagger2Plugin extends AutoPlugin {
   import autoImport._
 
   override lazy val projectSettings = Seq(
+    swaggerVersion := "1.5.9",
     swaggerOutputs := Seq.empty,
     swaggerGenerate := {
-      val classPath      = (fullClasspath in Runtime).value
+      val classPath      = (fullClasspath in Compile).value
       val inputDirectory = (classDirectory in Compile).value
       val log            = streams.value.log
       val apiClass       = classOf[annotations.Api]
@@ -77,7 +79,8 @@ object SbtSwagger2Plugin extends AutoPlugin {
       }
       log.info(s"Done generating ${output.size} Swagger JSON.")
       output
-    }
+    },
+    libraryDependencies += "io.swagger" % "swagger-annotations" % swaggerVersion.value
   )
 
   override lazy val buildSettings = Seq()

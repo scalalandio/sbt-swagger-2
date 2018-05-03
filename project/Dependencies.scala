@@ -11,6 +11,9 @@ object Dependencies {
   // build tools versions
   val scalaFmtVersion = "1.4.0"
 
+  // libraries versions
+  val swaggerVersion = "1.5.9"
+
   // resolvers
   val resolvers = Seq(
     Resolver sonatypeRepo "public",
@@ -18,8 +21,12 @@ object Dependencies {
   )
 
   // dependencies
-  val swaggerAkkaHttp = "com.github.swagger-akka-http" %% "swagger-akka-http" % "0.14.0"
-  val classUtil       = "org.clapper"                  %% "classutil"         % "1.2.0"
+  val swaggerCore        = "io.swagger"                   %  "swagger-core"        % swaggerVersion
+  val swaggerAnnotations = "io.swagger"                   %  "swagger-annotations" % swaggerVersion
+  val swaggerModels      = "io.swagger"                   %  "swagger-models"      % swaggerVersion
+  val swaggerJaxrs       = "io.swagger"                   %  "swagger-jaxrs"       % swaggerVersion
+  val swaggerAkkaHttp    = "com.github.swagger-akka-http" %% "swagger-akka-http"   % "0.14.0"
+  val classUtil          = "org.clapper"                  %% "classutil"           % "1.2.0"
 }
 
 trait Dependencies {

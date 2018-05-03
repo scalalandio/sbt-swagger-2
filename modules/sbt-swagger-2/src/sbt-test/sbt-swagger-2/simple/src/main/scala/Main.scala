@@ -1,8 +1,11 @@
 package simple
 
+import io.swagger.annotations._
+
 /**
   * A simple class and objects to write tests against.
   */
+@Api("Test API")
 class Main {
   val default = "the function returned"
   def method = default + " " + Main.function

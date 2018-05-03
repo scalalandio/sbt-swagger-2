@@ -113,7 +113,8 @@ object Settings extends Dependencies {
       Wart.Overloading,
       Wart.PublicInference,
       Wart.NonUnitStatements,
-      Wart.Nothing
+      Wart.Nothing,
+      Wart.Serializable
     )
   )
 

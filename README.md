@@ -59,4 +59,4 @@ sbt> swaggerGenerate
 
 ## Requirements
 
-This plugin requires sbt 1.0.0+. It does *not* add Swagger annotations to `libraryDependencies`.
+This plugin requires sbt 1.0.0+.

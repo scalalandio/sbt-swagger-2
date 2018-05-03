@@ -1,1 +1,2 @@
-> show swaggerGenerate
+> run
+> swaggerGenerate

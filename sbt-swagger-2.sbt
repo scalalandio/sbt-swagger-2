@@ -15,5 +15,6 @@ lazy val sbtSwagger2 = project
   .configureModule
   .settings(
     sbtPlugin := true,
-    scriptedLaunchOpts ++= Seq("-Xmx1024M", "-Dplugin.version=" + version.value)
+    scriptedLaunchOpts ++= Seq("-Xmx1024M", "-Dplugin.version=" + version.value),
+    scriptedBufferLog := false
   )
