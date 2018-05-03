@@ -1,0 +1,16 @@
+# Mostly borrowed from Cats - if it's good enough for them, it's good enough for us
+
+# see https://weblogs.java.net/blog/kcpeppe/archive/2013/12/11/case-study-jvm-hotspot-flags
+-Dfile.encoding=UTF8
+-Xms1G
+# limited by Shippable's RAM size (3.75G total)
+-Xmx2G
+# without that compiler throws stack overflow on implicit resolution
+-Xss8m
+-XX:ReservedCodeCacheSize=250M
+-XX:+TieredCompilation
+-XX:-UseGCOverheadLimit
+# effectively adds GC to Perm space
+-XX:+CMSClassUnloadingEnabled
+# must be enabled for CMSClassUnloadingEnabled to work
+-XX:+UseConcMarkSweepGC

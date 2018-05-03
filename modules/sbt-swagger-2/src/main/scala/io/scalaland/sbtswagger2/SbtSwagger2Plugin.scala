@@ -1,4 +1,4 @@
-package io.scalaland.sbtswagger
+package io.scalaland.sbtswagger2
 
 import io.swagger.annotations
 import org.clapper.classutil.{ ClassFinder, ClassUtil }
@@ -19,8 +19,8 @@ object SbtSwagger2Plugin extends AutoPlugin {
 
     object Swagger {
 
-      type Output = _root_.io.scalaland.sbtswagger.SwaggerOutput
-      val Output = _root_.io.scalaland.sbtswagger.SwaggerOutput
+      type Output = _root_.io.scalaland.sbtswagger2.SwaggerOutput
+      val Output = _root_.io.scalaland.sbtswagger2.SwaggerOutput
 
       type Contact = _root_.com.github.swagger.akka.model.Contact
       val Contact = _root_.com.github.swagger.akka.model.Contact

@@ -1,4 +1,4 @@
-package io.scalaland.sbtswagger
+package io.scalaland.sbtswagger2
 
 import com.github.swagger.akka.SwaggerGenerator
 import com.github.swagger.akka.model._
