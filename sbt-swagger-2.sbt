@@ -17,7 +17,6 @@ lazy val sbtSwagger2 = project
   .settings(publishSettings: _*)
   .settings(
     sbtPlugin := true,
-    publishMavenStyle := false,
     scriptedLaunchOpts ++= Seq("-Xmx1024M", "-Dplugin.version=" + version.value),
     scriptedBufferLog := false
   )
