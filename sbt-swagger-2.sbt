@@ -14,12 +14,13 @@ lazy val sbtSwagger2 = project
   .setDescription("sbt plugin for generating Swagger JSON schemas during build")
   .setInitialCommand("_")
   .configureModule
+  .settings(publishSettings: _*)
   .settings(
     sbtPlugin := true,
+    publishMavenStyle := false,
     scriptedLaunchOpts ++= Seq("-Xmx1024M", "-Dplugin.version=" + version.value),
     scriptedBufferLog := false
   )
-  .settings(publishSettings: _*)
 
 lazy val publishSettings = Seq(
   organization := "io.scalaland",
