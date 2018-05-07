@@ -14,9 +14,10 @@ object SbtSwagger2Plugin extends AutoPlugin {
 
   object autoImport {
 
-    val swaggerVersion  = settingKey[String]("Version of Swagger Annotations that should be added to project")
-    val swaggerOutputs  = settingKey[Seq[SwaggerOutput]]("Configurations of all intended Swagger outputs")
-    val swaggerGenerate = taskKey[Seq[File]]("Generate Swagger outputs")
+    val swaggerVersion     = settingKey[String]("Version of Swagger Annotations that should be added to project")
+    val swaggerWsRsVersion = settingKey[String]("Version of Javax Ws Rs that should be added to project")
+    val swaggerOutputs     = settingKey[Seq[SwaggerOutput]]("Configurations of all intended Swagger outputs")
+    val swaggerGenerate    = taskKey[Seq[File]]("Generate Swagger outputs")
 
     object Swagger {
 
@@ -52,7 +53,8 @@ object SbtSwagger2Plugin extends AutoPlugin {
   import autoImport._
 
   override lazy val projectSettings = Seq(
-    swaggerVersion := "1.5.9",
+    swaggerVersion := "1.5.19",
+    swaggerWsRsVersion := "2.1",
     swaggerOutputs := Seq.empty,
     swaggerGenerate := {
       val classPath      = (fullClasspath in Compile).value
@@ -80,7 +82,12 @@ object SbtSwagger2Plugin extends AutoPlugin {
       log.info(s"Done generating ${output.size} Swagger JSON.")
       output
     },
-    libraryDependencies += "io.swagger" % "swagger-annotations" % swaggerVersion.value
+    libraryDependencies += "io.swagger" % "swagger-annotations" % swaggerVersion.value,
+    libraryDependencies += "javax.ws.rs" % "javax.ws.rs-api" % swaggerWsRsVersion.value artifacts Artifact(
+      "javax.ws.rs-api",
+      "",
+      "jar"
+    )
   )
 
   override lazy val buildSettings = Seq()
