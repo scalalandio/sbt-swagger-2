@@ -25,7 +25,7 @@ after you modified files, remove all dependencies from build, and use `getFromRe
 First add plugin to `project/plugins.sbt` file:
 
 ```scala
-addSbtPlugin("io.scalaland" %% "sbt-swagger-2" % sbtSwagger2Version)
+addSbtPlugin("io.scalaland" % "sbt-swagger-2" % sbtSwagger2Version)
 ```
 
 Project basically reuse all constructs from [Swagger Akka HTTP](https://github.com/swagger-akka-http/swagger-akka-http).
