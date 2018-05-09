@@ -57,17 +57,17 @@ object SbtSwagger2Plugin extends AutoPlugin {
     swaggerJsr311Version := "1.1.1",
     swaggerOutputs := Seq.empty,
     swaggerGenerate := {
-      val classPath      = (fullClasspath in Compile).value
-      val inputDirectory = (classDirectory in Compile).value
-      val log            = streams.value.log
-      val apiClass       = classOf[annotations.Api]
-      val apiSignature   = ClassUtil.classSignature(apiClass)
+      val classPath        = (fullClasspath in Compile).value
+      val inputDirectories = classPath.files.filter(_.getName.endsWith("classes")) :+ (classDirectory in Runtime).value
+      val log              = streams.value.log
+      val apiClass         = classOf[annotations.Api]
+      val apiSignature     = ClassUtil.classSignature(apiClass)
 
       val pluginClassLoader = apiClass.getClassLoader.asInstanceOf[PluginClassLoader]
       pluginClassLoader.add(classPath.files.map(_.toURI.toURL))
-      log.info(s"Looking for compiled project classes in ${inputDirectory.toURI.toURL} ...")
+      log.info(s"Looking for compiled project classes in ${inputDirectories.map(_.toURI.toURL).mkString(", ")} ...")
 
-      val classes = ClassFinder(Seq(inputDirectory)).getClasses
+      val classes = ClassFinder(inputDirectories).getClasses
         .filter(_.annotations.exists(_.descriptor == apiSignature))
         .map { classInfo =>
           Class.forName(classInfo.name, false, pluginClassLoader)
@@ -76,7 +76,7 @@ object SbtSwagger2Plugin extends AutoPlugin {
 
       val output = swaggerOutputs.value.map { swaggerConfig =>
         log.info(s"Generating Swagger JSON in ${swaggerConfig.output} ...")
-        IO.write(swaggerConfig.output, swaggerConfig.generator(classes).generateSwaggerJson)
+        IO.write(swaggerConfig.output, swaggerConfig.generator(pluginClassLoader, classes).generateSwaggerJson)
         swaggerConfig.output
       }
       log.info(s"Done generating ${output.size} Swagger JSON.")
