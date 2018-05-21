@@ -7,6 +7,8 @@ import sbt.Keys._
 import sbt.internal.PluginManagement.PluginClassLoader
 import sbt.plugins.JvmPlugin
 
+import scala.collection.immutable.ListSet
+
 object SbtSwagger2Plugin extends AutoPlugin {
 
   override def trigger  = allRequirements
@@ -16,6 +18,7 @@ object SbtSwagger2Plugin extends AutoPlugin {
 
     val swaggerVersion       = settingKey[String]("Version of Swagger Annotations that should be added to project")
     val swaggerJsr311Version = settingKey[String]("Version of JSR311 that should be added to project")
+    val swaggerOrdering      = settingKey[Ordering[Class[_]]]("How endpoints should be ordered in file")
     val swaggerOutputs       = settingKey[Seq[SwaggerOutput]]("Configurations of all intended Swagger outputs")
     val swaggerGenerate      = taskKey[Seq[File]]("Generate Swagger outputs")
 
@@ -57,11 +60,12 @@ object SbtSwagger2Plugin extends AutoPlugin {
     swaggerJsr311Version := "1.1.1",
     swaggerOutputs := Seq.empty,
     swaggerGenerate := {
-      val classPath        = (fullClasspath in Compile).value
-      val inputDirectories = classPath.files.filter(_.getName.endsWith("classes")) :+ (classDirectory in Runtime).value
-      val log              = streams.value.log
-      val apiClass         = classOf[annotations.Api]
-      val apiSignature     = ClassUtil.classSignature(apiClass)
+      implicit val ordering = swaggerOrdering.value
+      val classPath         = (fullClasspath in Compile).value
+      val inputDirectories  = classPath.files.filter(_.getName.endsWith("classes")) :+ (classDirectory in Runtime).value
+      val log               = streams.value.log
+      val apiClass          = classOf[annotations.Api]
+      val apiSignature      = ClassUtil.classSignature(apiClass)
 
       val pluginClassLoader = apiClass.getClassLoader.asInstanceOf[PluginClassLoader]
       pluginClassLoader.add(classPath.files.map(_.toURI.toURL))
@@ -72,7 +76,8 @@ object SbtSwagger2Plugin extends AutoPlugin {
         .map { classInfo =>
           Class.forName(classInfo.name, false, pluginClassLoader)
         }
-        .toSet
+        .sorted
+        .to[ListSet]
 
       val output = swaggerOutputs.value.map { swaggerConfig =>
         log.info(s"Generating Swagger JSON in ${swaggerConfig.output} ...")
