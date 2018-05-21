@@ -58,6 +58,7 @@ object SbtSwagger2Plugin extends AutoPlugin {
   override lazy val projectSettings = Seq(
     swaggerVersion := "1.5.19",
     swaggerJsr311Version := "1.1.1",
+    swaggerOrdering := Ordering.by[Class[_], String](_.getName),
     swaggerOutputs := Seq.empty,
     swaggerGenerate := {
       implicit val ordering = swaggerOrdering.value
