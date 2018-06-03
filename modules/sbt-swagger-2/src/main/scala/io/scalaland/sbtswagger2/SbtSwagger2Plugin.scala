@@ -56,7 +56,7 @@ object SbtSwagger2Plugin extends AutoPlugin {
   import autoImport._
 
   override lazy val projectSettings = Seq(
-    swaggerVersion := "1.5.19",
+    swaggerVersion := "1.5.20",
     swaggerJsr311Version := "1.1.1",
     swaggerOrdering := Ordering.by[Class[_], String](_.getName),
     swaggerOutputs := Seq.empty,

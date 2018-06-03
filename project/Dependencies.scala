@@ -6,13 +6,13 @@ object Dependencies {
 
   // scala version
   val scalaOrganization = "org.scala-lang"
-  val scalaVersion      = "2.12.4"
+  val scalaVersion      = "2.12.6"
 
   // build tools versions
-  val scalaFmtVersion = "1.4.0"
+  val scalaFmtVersion = "1.5.0"
 
   // libraries versions
-  val swaggerVersion = "1.5.9"
+  val swaggerVersion = "1.5.20"
 
   // resolvers
   val resolvers = Seq(
