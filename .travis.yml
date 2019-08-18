@@ -9,7 +9,7 @@ cache:
   directories:
               - $HOME/.ivy2/cache
               - $HOME/.sbt/boot/
-script:         scripts/sbt scripted
+script:         ./sbt scripted
 after_script:
               - find $HOME/.sbt -name "*.lock" | xargs rm
               - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
