@@ -4,6 +4,8 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.scalaland/sbt-swagger-2_2.12.svg)](http://search.maven.org/#search%7Cga%7C1%7Csbt-swagger-2)
 [![License](http://img.shields.io/:license-Apache%202-green.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
+> **This project is archived.** I moved away from using `swagger-core` in general, I am **very** happy about it and I cannot support this plugin anymore. If you are interested in using it and you need some modifications, I suggest forking it. Alternatively - if you are able to - move away to [endpoints](https://julienrf.github.io/endpoints/) or [tapir](https://github.com/softwaremill/tapir).
+
 This plugin is a sbt wrapper for a [Swagger Akka HTTP](https://github.com/swagger-akka-http/swagger-akka-http), that
 allows you to generate one (or more) Swagger JSON files during build instead of doing it in runtime.
 
